@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Crypto Faucet - PEPE | Feyorra | Gram | Bitcoin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 25px 0;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            background: linear-gradient(90deg, #00ff88, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #aaa;
+            font-size: 1.1rem;
+        }
+
+        /* Ad Banner Style */
+        .ad-banner {
+            background: #1a1a2e;
+            border: 2px dashed #444;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 0.95rem;
+        }
+
+        .ad-banner.top {
+            min-height: 100px;
+        }
+
+        .ad-banner.sidebar {
+            min-height: 250px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #00ff88;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .balance-box {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .balance-box .label {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .balance-box .amount {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00ff88;
+            margin: 8px 0;
+        }
+
+        .coin-select {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 500px) {
+            .coin-select {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .coin-btn {
+            background: #1a1a2e;
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .coin-btn:hover {
+            border-color: #00ff88;
+            transform: translateY(-3px);
+        }
+
+        .coin-btn.active {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.15);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .coin-btn img {
+            width: 36px;
+            height: 36px;
+            margin-bottom: 8px;
+        }
+
+        .coin-btn span {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            background: #1a1a2e;
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #00ff88;
+        }
+
+        .captcha-box {
+            background: #1a1a2e;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .captcha-question {
+            font-size: 1.3rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #00ccff;
+        }
+
+        .captcha-input {
+            width: 100px;
+            padding: 10px;
+            text-align: center;
+            font-size: 1.2rem;
+            background: #0f0c29;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #fff;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #00ff88, #00ccff);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-claim {
+            background: linear-gradient(90deg, #ff6b6b, #ff8e53);
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        .btn-claim:hover {
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .info-text {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        .history {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            background: rgba(255,255,255,0.03);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .status-success {
+            color: #00ff88;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .alert-success {
+            background: rgba(0, 255, 136, 0.15);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+        }
+
+        .alert-error {
+            background: rgba(255, 80, 80, 0.15);
+            border: 1px solid #ff5050;
+            color: #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>💧 Multi Crypto Faucet</h1>
+            <p>PEPE • Feyorra • Gram • Bitcoin</p>
+        </header>
+
+        <!-- Top Ad Banner -->
+        <div class="ad-banner top">
+            <!-- GANTI DENGAN KODE IKLAN DARI PROVIDER (Adsense / Propeller / dll) -->
+            [TEMPAT IKLAN ATAS - Ganti dengan kode iklan kamu]
+        </div>
+
+        <div class="main-grid">
+            <!-- Left Column -->
+            <div class="left">
+                <!-- Balance Card -->
+                <div class="card">
+                    <h2>💰 Saldo Kamu</h2>
+                    <div class="balance-box">
+                        <div class="label">Total Saldo</div>
+                        <div class="amount" id="balanceDisplay">0.00000000</div>
+                        <div class="label" id="selectedCoinLabel">PEPE</div>
+                    </div>
+
+                    <div class="coin-select">
+                        <div class="coin-btn active" data-coin="PEPE" onclick="selectCoin('PEPE')">
+                            <div style="font-size:28px">🐸</div>
+                            <span>PEPE</span>
+                        </div>
+                        <div class="coin-btn" data-coin="FEYORRA" onclick="selectCoin('FEYORRA')">
+                            <div style="font-size:28px">⚡</div>
+                            <span>Feyorra</span>
+                        </div>
+                        <div class="coin-btn" data-coin="GRAM" onclick="selectCoin('GRAM')">
+                            <div style="font-size:28px">💎</div>
+                            <span>Gram</span>
+                        </div>
+                        <div class="coin-btn" data-coin="BTC" onclick="selectCoin('BTC')">
+                            <div style="font-size:28px">₿</div>
+                            <span>Bitcoin</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-claim" onclick="claimFaucet()">
+                        🎁 Claim Faucet
+                    </button>
+                    <p class="info-text">
+                        * Tidak ada batas claim. Setiap claim bisa mendapat reward acak.
+                    </p>
+                </div>
+
+                <!-- Withdraw Card -->
+                <div class="card">
+                    <h2>📤 Withdraw</h2>
+                    
+                    <div id="alertBox" class="alert"></div>
+
+                    <div class="form-group">
+                        <label>Pilih Coin</label>
+                        <select id="wdCoin">
+                            <option value="PEPE">PEPE</option>
+                            <option value="FEYORRA">Feyorra</option>
+                            <option value="GRAM">Gram</option>
+                            <option value="BTC">Bitcoin</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Alamat Wallet</label>
+                        <input type="text" id="wdAddress" placeholder="Masukkan alamat wallet yang benar...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah Withdraw</label>
+                        <input type="number" id="wdAmount" placeholder="0.00000000" step="any" min="0">
+                    </div>
+
+                    <!-- Captcha -->
+                    <div class="form-group">
+                        <label>Captcha (Wajib)</label>
+                        <div class="captcha-box">
+                            <div class="captcha-question" id="captchaQuestion">7 + 3 = ?</div>
+                            <input type="number" class="captcha-input" id="captchaAnswer" placeholder="?">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="doWithdraw()">
+                        💸 Tarik Sekarang
+                    </button>
+
+                    <p class="info-text">
+                        ✅ Tidak ada batas minimum / maksimum<br>
+                        ✅ Tidak ada waktu tunggu<br>
+                        ✅ Bisa tarik ke alamat mana saja (asalkan alamat valid untuk coin yang dipilih)<br>
+                        ⚠️ Pastikan alamat sudah benar sebelum withdraw
+                    </p>
+                </div>
+
+                <!-- History -->
+                <div class="card">
+                    <h2>📜 Riwayat Withdraw</h2>
+                    <div class="history" id="historyList">
+                        <div style="text-align:center;color:#666;padding:20px;">
+                            Belum ada riwayat withdraw
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column (Sidebar Ads) -->
+            <div class="right">
+                <div class="ad-banner sidebar">
+                    <!-- GANTI DENGAN KODE IKLAN SIDEBAR -->
+                    [TEMPAT IKLAN SIDEBAR 1]
+                </div>
+
+                <div class="ad-banner sidebar" style="margin-top:20px;">
+                    <!-- GANTI DENGAN KODE IKLAN SIDEBAR -->
+                    [TEMPAT IKLAN SIDEBAR 2]
+                </div>
+
+                <div class="card" style="margin-top:20px;">
+                    <h2 style="font-size:1.1rem;">ℹ️ Info</h2>
+                    <p class="info-text" style="margin-top:0;">
+                        Faucet ini mendukung 4 coin:<br><br>
+                        • <b>PEPE</b> (Pepe Coin)<br>
+                        • <b>Feyorra</b><br>
+                        • <b>Gram</b> (sebelumnya Toncoin)<br>
+                        • <b>Bitcoin</b><br><br>
+                        Semua withdraw wajib melewati captcha.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Ad -->
+        <div class="ad-banner">
+            <!-- GANTI DENGAN KODE IKLAN BAWAH -->
+            [TEMPAT IKLAN BAWAH - Ganti dengan kode iklan kamu]
+        </div>
+
+        <footer>
+            Multi Crypto Faucet &copy; 2026 — Hanya frontend demo. Backend perlu dihubungkan sendiri.
+        </footer>
+    </div>
+
+    <script>
+        // ===== State =====
+        let currentCoin = 'PEPE';
+        let balances = {
+            PEPE: 0,
+            FEYORRA: 0,
+            GRAM: 0,
+            BTC: 0
+        };
+        let history = [];
+        let captchaAnswer = 0;
+
+        // ===== Generate Captcha =====
+        function generateCaptcha() {
+            const a = Math.floor(Math.random() * 15) + 1;
+            const b = Math.floor(Math.random() * 10) + 1;
+            captchaAnswer = a + b;
+            document.getElementById('captchaQuestion').textContent = `${a} + ${b} = ?`;
+            document.getElementById('captchaAnswer').value = '';
+        }
+
+        // ===== Select Coin =====
+        function selectCoin(coin) {
+            currentCoin = coin;
+            document.querySelectorAll('.coin-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-coin="${coin}"]`).classList.add('active');
+            document.getElementById('selectedCoinLabel').textContent = coin;
+            document.getElementById('balanceDisplay').textContent = balances[coin].toFixed(8);
+            document.getElementById('wdCoin').value = coin;
+        }
+
+        // ===== Claim Faucet (Demo) =====
+        function claimFaucet() {
+            // Reward acak kecil (demo)
+            const rewards = {
+                PEPE: (Math.random() * 50 + 10).toFixed(2),
+                FEYORRA: (Math.random() * 0.5 + 0.1).toFixed(4),
+                GRAM: (Math.random() * 0.3 + 0.05).toFixed(4),
+                BTC: (Math.random() * 0.00005 + 0.00001).toFixed(8)
+            };
+
+            const reward = parseFloat(rewards[currentCoin]);
+            balances[currentCoin] += reward;
+
+            document.getElementById('balanceDisplay').textContent = balances[currentCoin].toFixed(8);
+
+            showAlert(`Berhasil claim ${reward} ${currentCoin}!`, 'success');
+        }
+
+        // ===== Withdraw =====
+        function doWithdraw() {
+            const coin = document.getElementById('wdCoin').value;
+            const address = document.getElementById('wdAddress').value.trim();
+            const amount = parseFloat(document.getElementById('wdAmount').value);
+            const userCaptcha = parseInt(document.getElementById('captchaAnswer').value);
+
+            // Validasi
+            if (!address) {
+                showAlert('Alamat wallet wajib diisi!', 'error');
+                return;
+            }
+            if (isNaN(amount) || amount <= 0) {
+                showAlert('Jumlah withdraw tidak valid!', 'error');
+                return;
+            }
+            if (userCaptcha !== captchaAnswer) {
+                showAlert('Captcha salah! Coba lagi.', 'error');
+                generateCaptcha();
+                return;
+            }
+            if (amount > balances[coin]) {
+                showAlert(`Saldo ${coin} tidak cukup!`, 'error');
+                return;
+            }
+
+            // Proses withdraw (demo - di dunia nyata kirim ke backend)
+            balances[coin] -= amount;
+            document.getElementById('balanceDisplay').textContent = balances[currentCoin].toFixed(8);
+
+            // Simpan history
+            const now = new Date().toLocaleString('id-ID');
+            history.unshift({
+                coin,
+                amount,
+                address: address.substring(0, 12) + '...' + address.slice(-6),
+                time: now
+            });
+
+            renderHistory();
+            showAlert(`Berhasil withdraw ${amount} ${coin} ke ${address.substring(0, 10)}...`, 'success');
+
+            // Reset form
+            document.getElementById('wdAmount').value = '';
+            document.getElementById('wdAddress').value = '';
+            generateCaptcha();
+        }
+
+        // ===== History =====
+        function renderHistory() {
+            const list = document.getElementById('historyList');
+            if (history.length === 0) {
+                list.innerHTML = '<div style="text-align:center;color:#666;padding:20px;">Belum ada riwayat withdraw</div>';
+                return;
+            }
+
+            list.innerHTML = history.map(item => `
+                <div class="history-item">
+                    <div>
+                        <strong class="status-success">${item.amount} ${item.coin}</strong><br>
+                        <small style="color:#888">${item.address}</small>
+                    </div>
+                    <div style="text-align:right;font-size:0.8rem;color:#666;">
+                        ${item.time}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ===== Alert =====
+        function showAlert(msg, type) {
+            const box = document.getElementById('alertBox');
+            box.className = `alert alert-${type}`;
+            box.textContent = msg;
+            box.style.display = 'block';
+
+            setTimeout(() => {
+                box.style.display = 'none';
+            }, 4000);
+        }
+
+        // Init
+        generateCaptcha();
+    </script>
+</body>
+</html>
