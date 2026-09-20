@@ -59,10 +59,6 @@
             font-size: 0.95rem;
         }
 
-        .ad-banner.top {
-            min-height: 100px;
-        }
-
         .ad-banner.sidebar {
             min-height: 250px;
         }
@@ -145,33 +141,94 @@
             border-color: #00ff88;
         }
 
-        .captcha-box {
+        /* --- DESAIN CAPTCHA KEREN --- */
+        .captcha-box-advanced {
             background: #1a1a2e;
-            border-radius: 10px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
             margin-bottom: 20px;
         }
 
-        .captcha-question {
-            font-size: 1.3rem;
+        .captcha-title {
+            font-size: 1rem;
+            color: #00ff88;
+            margin-bottom: 5px;
             font-weight: bold;
-            letter-spacing: 2px;
-            color: #00ccff;
         }
 
-        .captcha-input {
+        .captcha-subtitle {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .thumb-btn {
             width: 100px;
-            padding: 10px;
-            text-align: center;
+            height: 100px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            background: #24243e;
+            border: 4px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 45px;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            transition: transform 0.1s, border-color 0.2s;
+        }
+
+        .thumb-btn:active {
+            transform: scale(0.95);
+        }
+
+        .timer-display {
             font-size: 1.2rem;
-            background: #0f0c29;
-            border: 1px solid #444;
+            font-weight: bold;
+            color: #00ccff;
+            font-family: monospace;
+            margin-bottom: 5px;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .img-option {
+            background: #24243e;
+            border: 2px solid #444;
             border-radius: 8px;
-            color: #fff;
+            padding: 8px;
+            cursor: pointer;
+            font-size: 28px;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+        }
+
+        .img-option:hover {
+            border-color: #00ff88;
+            background: #2a2a4a;
+        }
+
+        .upside-down {
+            transform: rotate(180deg);
+        }
+
+        .captcha-status {
+            font-size: 0.85rem;
+            min-height: 20px;
+            margin-top: 8px;
+            font-weight: bold;
         }
 
         .btn {
@@ -227,9 +284,8 @@
             justify-content: space-between;
         }
 
-        .status-success {
-            color: #00ff88;
-        }
+        .status-success { color: #00ff88; }
+        .status-error { color: #ff5050; }
 
         footer {
             text-align: center;
@@ -296,7 +352,7 @@
 
                 <!-- Withdraw Card -->
                 <div class="card">
-                    <h2>📤 Withdraw</h2>
+                    <h2>📤 Withdraw PEPE</h2>
 
                     <div id="alertBox" class="alert"></div>
 
@@ -310,13 +366,28 @@
                         <input type="number" id="wdAmount" placeholder="0" step="any" min="0">
                     </div>
 
-                    <!-- Captcha -->
-                    <div class="form-group">
-                        <label>Captcha (Wajib)</label>
-                        <div class="captcha-box">
-                            <div class="captcha-question" id="captchaQuestion">7 + 3 = ?</div>
-                            <input type="number" class="captcha-input" id="captchaAnswer" placeholder="?">
+                    <!-- CAPTCHA INTERAKTIF DUA TAHAP -->
+                    <div class="captcha-box-advanced">
+                        <!-- TAHAP 1: HOLD JEMPOL -->
+                        <div id="captchaStepHold">
+                            <div class="captcha-title">🛡️ Captcha Tahap 1: Tahanan Waktu</div>
+                            <div class="captcha-subtitle">Tahan tombol jempol minimal <b>5.3179 detik</b> dan maksimal <b>10 detik</b>.</div>
+                            <div class="thumb-btn" id="thumbBtn">👍</div>
+                            <div class="timer-display" id="timerDisplay">0.0000s</div>
                         </div>
+
+                        <!-- TAHAP 2: GAMBAR TERBALIK -->
+                        <div id="captchaStepImage" style="display: none;">
+                            <div class="captcha-title">🛡️ Captcha Tahap 2: Verifikasi Visual</div>
+                            <div class="captcha-subtitle">Pilih gambar yang posisinya <b>TERBALIK</b>:</div>
+                            <div class="image-grid">
+                                <div class="img-option" onclick="verifyImageChoice(false)">🦩</div>
+                                <div class="img-option upside-down" onclick="verifyImageChoice(true)">🐒</div>
+                                <div class="img-option" onclick="verifyImageChoice(false)">🦁</div>
+                            </div>
+                        </div>
+
+                        <div class="captcha-status" id="captchaStatusMsg"></div>
                     </div>
 
                     <button class="btn btn-primary" onclick="doWithdraw()">
@@ -351,7 +422,7 @@
                 </div>
                 <!-- END AADS AD UNIT 2455836 -->
 
-                <div class="ad-banner sidebar">
+                <div class="ad-banner sidebar" style="margin-top:20px;">
                     [TEMPAT IKLAN SIDEBAR 2]
                 </div>
 
@@ -359,7 +430,7 @@
                     <h2 style="font-size:1.1rem;">ℹ️ Info Faucet</h2>
                     <p class="info-text" style="margin-top:0;">
                         Faucet ini khusus untuk klaim <b>PEPE Token</b>.<br><br>
-                        Semua transaksi penarikan wajib menyelesaikan verification captcha.
+                        Semua transaksi penarikan wajib menyelesaikan captcha tahan jempol dan verifikasi gambar terbalik.
                     </p>
                 </div>
             </div>
@@ -376,21 +447,132 @@
     </div>
 
     <script>
-        // ===== State =====
+        // ===== STATE FAUCET =====
         let pePEBalance = 0;
         let history = [];
-        let captchaAnswer = 0;
 
-        // ===== Generate Captcha =====
-        function generateCaptcha() {
-            const a = Math.floor(Math.random() * 15) + 1;
-            const b = Math.floor(Math.random() * 10) + 1;
-            captchaAnswer = a + b;
-            document.getElementById('captchaQuestion').textContent = `${a} + ${b} = ?`;
-            document.getElementById('captchaAnswer').value = '';
+        // ===== STATE CAPTCHA =====
+        const MIN_HOLD_TIME = 5.3179;  // Minimal 5.3179 detik
+        const MAX_HOLD_TIME = 10.0000; // Maksimal 10 detik
+
+        const thumbBtn = document.getElementById('thumbBtn');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const captchaStatusMsg = document.getElementById('captchaStatusMsg');
+        const captchaStepHold = document.getElementById('captchaStepHold');
+        const captchaStepImage = document.getElementById('captchaStepImage');
+
+        let holdStartTime = null;
+        let holdAnimFrame = null;
+        let isHolding = false;
+        let isCaptchaPassed = false;
+
+        // ===== LOGIKA HOLD CAPTCHA TAHAP 1 =====
+        function updateHoldTimer() {
+            if (!isHolding) return;
+
+            const now = performance.now();
+            const elapsed = (now - holdStartTime) / 1000;
+
+            timerDisplay.textContent = elapsed.toFixed(4) + 's';
+
+            if (elapsed > MAX_HOLD_TIME) {
+                thumbBtn.style.borderColor = "#ff5050";
+            } else if (elapsed >= MIN_HOLD_TIME) {
+                thumbBtn.style.borderColor = "#00ff88";
+            } else {
+                thumbBtn.style.borderColor = "#333";
+            }
+
+            holdAnimFrame = requestAnimationFrame(updateHoldTimer);
         }
 
-        // ===== Acak Reward PEPE =====
+        function startHold(e) {
+            e.preventDefault();
+            if (isCaptchaPassed) return;
+
+            isHolding = true;
+            holdStartTime = performance.now();
+            captchaStatusMsg.textContent = "";
+            captchaStatusMsg.className = "captcha-status";
+            thumbBtn.style.borderColor = "#333";
+
+            holdAnimFrame = requestAnimationFrame(updateHoldTimer);
+        }
+
+        function endHold(e) {
+            e.preventDefault();
+            if (!isHolding || isCaptchaPassed) return;
+
+            isHolding = false;
+            cancelAnimationFrame(holdAnimFrame);
+
+            const holdEndTime = performance.now();
+            const holdDuration = (holdEndTime - holdStartTime) / 1000;
+
+            if (holdDuration >= MIN_HOLD_TIME && holdDuration <= MAX_HOLD_TIME) {
+                // Berhasil Tahap 1 -> Pindah ke Tahap 2
+                captchaStatusMsg.textContent = "✅ Tahap 1 Pas! Pilih gambar terbalik.";
+                captchaStatusMsg.className = "captcha-status status-success";
+
+                setTimeout(() => {
+                    captchaStepHold.style.display = "none";
+                    captchaStepImage.style.display = "block";
+                    captchaStatusMsg.textContent = "";
+                }, 800);
+            } else {
+                // Gagal Tahap 1
+                timerDisplay.textContent = holdDuration.toFixed(4) + 's';
+
+                if (holdDuration < MIN_HOLD_TIME) {
+                    captchaStatusMsg.textContent = "❌ Terlalu cepat! Minimal tahan 5.3179 detik.";
+                } else {
+                    captchaStatusMsg.textContent = "❌ Terlalu lama! Lebih dari 10 detik tidak bisa.";
+                }
+
+                captchaStatusMsg.className = "captcha-status status-error";
+                thumbBtn.style.borderColor = "#ff5050";
+
+                setTimeout(() => {
+                    timerDisplay.textContent = "0.0000s";
+                    thumbBtn.style.borderColor = "#333";
+                }, 1500);
+            }
+        }
+
+        // ===== LOGIKA CAPTCHA TAHAP 2 (GAMBAR TERBALIK) =====
+        function verifyImageChoice(isCorrect) {
+            if (isCorrect) {
+                isCaptchaPassed = true;
+                captchaStatusMsg.textContent = "🎉 Captcha Berhasil Diisi!";
+                captchaStatusMsg.className = "captcha-status status-success";
+                captchaStepImage.style.pointerEvents = "none";
+            } else {
+                captchaStatusMsg.textContent = "❌ Pilihan salah! Mengulang dari awal...";
+                captchaStatusMsg.className = "captcha-status status-error";
+
+                setTimeout(() => {
+                    resetCaptcha();
+                }, 1500);
+            }
+        }
+
+        function resetCaptcha() {
+            isCaptchaPassed = false;
+            captchaStepImage.style.pointerEvents = "auto";
+            captchaStepImage.style.display = "none";
+            captchaStepHold.style.display = "block";
+            timerDisplay.textContent = "0.0000s";
+            captchaStatusMsg.textContent = "";
+            thumbBtn.style.borderColor = "#333";
+        }
+
+        // ===== EVENT LISTENERS CAPTCHA =====
+        thumbBtn.addEventListener('mousedown', startHold);
+        window.addEventListener('mouseup', endHold);
+        thumbBtn.addEventListener('touchstart', startHold);
+        window.addEventListener('touchend', endHold);
+
+        // ===== LOGIKA CLAIM FAUCET =====
         function getPepeAmount() {
             const rnd = Math.random() * 100;
             if (rnd < 60) return 15;   // 60% → 15 PEPE
@@ -401,7 +583,6 @@
             return 60;                 // 1%  → 60 PEPE
         }
 
-        // ===== Claim Faucet =====
         function claimFaucet() {
             const reward = getPepeAmount();
             pePEBalance += reward;
@@ -410,13 +591,12 @@
             showAlert(`Berhasil claim ${reward} PEPE!`, 'success');
         }
 
-        // ===== Withdraw =====
+        // ===== LOGIKA WITHDRAW =====
         function doWithdraw() {
             const address = document.getElementById('wdAddress').value.trim();
             const amount = parseFloat(document.getElementById('wdAmount').value);
-            const userCaptcha = parseInt(document.getElementById('captchaAnswer').value);
 
-            // Validasi
+            // Validasi Data Form
             if (!address) {
                 showAlert('Alamat wallet wajib diisi!', 'error');
                 return;
@@ -425,9 +605,8 @@
                 showAlert('Jumlah withdraw tidak valid!', 'error');
                 return;
             }
-            if (userCaptcha !== captchaAnswer) {
-                showAlert('Captcha salah! Coba lagi.', 'error');
-                generateCaptcha();
+            if (!isCaptchaPassed) {
+                showAlert('Selesaikan Captcha verifikasi terlebih dahulu!', 'error');
                 return;
             }
             if (amount > pePEBalance) {
@@ -435,11 +614,11 @@
                 return;
             }
 
-            // Proses withdraw
+            // Eksekusi Withdraw
             pePEBalance -= amount;
             document.getElementById('balanceDisplay').textContent = pePEBalance;
 
-            // Simpan history
+            // Tambah ke Riwayat
             const now = new Date().toLocaleString('id-ID');
             history.unshift({
                 amount,
@@ -450,13 +629,13 @@
             renderHistory();
             showAlert(`Berhasil withdraw ${amount} PEPE!`, 'success');
 
-            // Reset form
+            // Reset Form & Reset Captcha Ulang
             document.getElementById('wdAmount').value = '';
             document.getElementById('wdAddress').value = '';
-            generateCaptcha();
+            resetCaptcha();
         }
 
-        // ===== History =====
+        // ===== RIWAYAT & ALERT =====
         function renderHistory() {
             const list = document.getElementById('historyList');
             if (history.length === 0) {
@@ -477,7 +656,6 @@
             `).join('');
         }
 
-        // ===== Alert =====
         function showAlert(msg, type) {
             const box = document.getElementById('alertBox');
             box.className = `alert alert-${type}`;
@@ -488,9 +666,6 @@
                 box.style.display = 'none';
             }, 4000);
         }
-
-        // Init
-        generateCaptcha();
     </script>
 </body>
 </html>
