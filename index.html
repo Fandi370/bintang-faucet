@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi Crypto Faucet - PEPE | Feyorra | Gram | Bitcoin</title>
+    <title>PEPE Faucet</title>
     <style>
         * {
             margin: 0;
@@ -118,52 +118,6 @@
             margin: 8px 0;
         }
 
-        .coin-select {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        @media (max-width: 500px) {
-            .coin-select {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        .coin-btn {
-            background: #1a1a2e;
-            border: 2px solid #333;
-            border-radius: 12px;
-            padding: 15px 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .coin-btn:hover {
-            border-color: #00ff88;
-            transform: translateY(-3px);
-        }
-
-        .coin-btn.active {
-            border-color: #00ff88;
-            background: rgba(0, 255, 136, 0.15);
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
-        }
-
-        .coin-btn img {
-            width: 36px;
-            height: 36px;
-            margin-bottom: 8px;
-        }
-
-        .coin-btn span {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
         .form-group {
             margin-bottom: 18px;
         }
@@ -175,8 +129,7 @@
             font-size: 0.95rem;
         }
 
-        .form-group input,
-        .form-group select {
+        .form-group input {
             width: 100%;
             padding: 14px 16px;
             background: #1a1a2e;
@@ -188,8 +141,7 @@
             transition: border 0.3s;
         }
 
-        .form-group input:focus,
-        .form-group select:focus {
+        .form-group input:focus {
             border-color: #00ff88;
         }
 
@@ -311,19 +263,16 @@
     <div class="container">
         <!-- Header -->
         <header>
-            <h1>💧 Multi Crypto Faucet</h1>
-            <p>PEPE • Feyorra • Gram • Bitcoin</p>
+            <h1>🐸 PEPE Faucet</h1>
+            <p>Dapatkan PEPE Gratis Tanpa Batas</p>
         </header>
 
-<!-- BEGIN AADS AD UNIT 2455836 -->
-
-<div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
-          <iframe data-aa='2455836' src='//acceptable.a-ads.com/2455836/?size=Adaptive'
-                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
+        <!-- BEGIN AADS AD UNIT 2455836 -->
+        <div id="frame" style="width: 100%; margin: 0 auto 20px auto; position: relative; z-index: 99998;">
+            <iframe data-aa='2455836' src='//acceptable.a-ads.com/2455836/?size=Adaptive'
+                    style='border:0; padding:0; width:70%; height:auto; overflow:hidden; display: block; margin: auto;'></iframe>
         </div>
-
-<!-- END AADS AD UNIT 2455836 -->
-        </div>
+        <!-- END AADS AD UNIT 2455836 -->
 
         <div class="main-grid">
             <!-- Left Column -->
@@ -333,34 +282,15 @@
                     <h2>💰 Saldo Kamu</h2>
                     <div class="balance-box">
                         <div class="label">Total Saldo</div>
-                        <div class="amount" id="balanceDisplay">0.00000000</div>
-                        <div class="label" id="selectedCoinLabel">PEPE</div>
-                    </div>
-
-                    <div class="coin-select">
-                        <div class="coin-btn active" data-coin="PEPE" onclick="selectCoin('PEPE')">
-                            <div style="font-size:28px">🐸</div>
-                            <span>PEPE</span>
-                        </div>
-                        <div class="coin-btn" data-coin="FEYORRA" onclick="selectCoin('FEYORRA')">
-                            <div style="font-size:28px">⚡</div>
-                            <span>Feyorra</span>
-                        </div>
-                        <div class="coin-btn" data-coin="GRAM" onclick="selectCoin('GRAM')">
-                            <div style="font-size:28px">💎</div>
-                            <span>Gram</span>
-                        </div>
-                        <div class="coin-btn" data-coin="BTC" onclick="selectCoin('BTC')">
-                            <div style="font-size:28px">₿</div>
-                            <span>Bitcoin</span>
-                        </div>
+                        <div class="amount" id="balanceDisplay">0</div>
+                        <div class="label">PEPE</div>
                     </div>
 
                     <button class="btn btn-claim" onclick="claimFaucet()">
-                        🎁 Claim Faucet
+                        🎁 Claim PEPE Faucet
                     </button>
                     <p class="info-text">
-                        * Tidak ada batas claim. Setiap claim bisa mendapat reward acak.
+                        * Tidak ada batas claim. Setiap claim bisa mendapat reward PEPE acak.
                     </p>
                 </div>
 
@@ -371,23 +301,13 @@
                     <div id="alertBox" class="alert"></div>
 
                     <div class="form-group">
-                        <label>Pilih Coin</label>
-                        <select id="wdCoin">
-                            <option value="PEPE">PEPE</option>
-                            <option value="FEYORRA">Feyorra</option>
-                            <option value="GRAM">Gram</option>
-                            <option value="BTC">Bitcoin</option>
-                        </select>
+                        <label>Alamat Wallet PEPE</label>
+                        <input type="text" id="wdAddress" placeholder="Masukkan alamat wallet PEPE...">
                     </div>
 
                     <div class="form-group">
-                        <label>Alamat Wallet</label>
-                        <input type="text" id="wdAddress" placeholder="Masukkan alamat wallet yang benar...">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Jumlah Withdraw</label>
-                        <input type="number" id="wdAmount" placeholder="0.00000000" step="any" min="0">
+                        <label>Jumlah Withdraw (PEPE)</label>
+                        <input type="number" id="wdAmount" placeholder="0" step="any" min="0">
                     </div>
 
                     <!-- Captcha -->
@@ -406,7 +326,7 @@
                     <p class="info-text">
                         ✅ Tidak ada batas minimum / maksimum<br>
                         ✅ Tidak ada waktu tunggu<br>
-                        ✅ Bisa tarik ke alamat mana saja (asalkan alamat valid untuk coin yang dipilih)<br>
+                        ✅ Bisa tarik ke alamat wallet PEPE mana saja<br>
                         ⚠️ Pastikan alamat sudah benar sebelum withdraw
                     </p>
                 </div>
@@ -422,28 +342,24 @@
                 </div>
             </div>
 
-<!-- BEGIN AADS AD UNIT 2455836 -->
+            <!-- Right Column -->
+            <div class="right">
+                <!-- BEGIN AADS AD UNIT 2455836 -->
+                <div id="frame-right" style="width: 100%; margin: auto; position: relative; z-index: 99998;">
+                    <iframe data-aa='2455836' src='//acceptable.a-ads.com/2455836/?size=Adaptive'
+                            style='border:0; padding:0; width:100%; height:auto; overflow:hidden; display: block; margin: auto;'></iframe>
+                </div>
+                <!-- END AADS AD UNIT 2455836 -->
 
-<div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
-          <iframe data-aa='2455836' src='//acceptable.a-ads.com/2455836/?size=Adaptive'
-                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
-        </div>
-
-<!-- END AADS AD UNIT 2455836 -->
-                <div class="ad-banner sidebar" style="margin-top:20px;">
-                    <!-- GANTI DENGAN KODE IKLAN SIDEBAR -->
+                <div class="ad-banner sidebar">
                     [TEMPAT IKLAN SIDEBAR 2]
                 </div>
 
                 <div class="card" style="margin-top:20px;">
-                    <h2 style="font-size:1.1rem;">ℹ️ Info</h2>
+                    <h2 style="font-size:1.1rem;">ℹ️ Info Faucet</h2>
                     <p class="info-text" style="margin-top:0;">
-                        Faucet ini mendukung 4 coin:<br><br>
-                        • <b>PEPE</b> (Pepe Coin)<br>
-                        • <b>Feyorra</b><br>
-                        • <b>Gram</b> (sebelumnya Toncoin)<br>
-                        • <b>Bitcoin</b><br><br>
-                        Semua withdraw wajib melewati captcha.
+                        Faucet ini khusus untuk klaim <b>PEPE Token</b>.<br><br>
+                        Semua transaksi penarikan wajib menyelesaikan verification captcha.
                     </p>
                 </div>
             </div>
@@ -451,24 +367,17 @@
 
         <!-- Bottom Ad -->
         <div class="ad-banner">
-            <!-- GANTI DENGAN KODE IKLAN BAWAH -->
             [TEMPAT IKLAN BAWAH - Ganti dengan kode iklan kamu]
         </div>
 
         <footer>
-            Multi Crypto Faucet &copy; 2026 — Hanya frontend demo. Backend perlu dihubungkan sendiri.
+            PEPE Faucet &copy; 2026 — Hanya frontend demo. Backend perlu dihubungkan sendiri.
         </footer>
     </div>
 
     <script>
         // ===== State =====
-        let currentCoin = 'PEPE';
-        let balances = {
-            PEPE: 0,
-            FEYORRA: 0,
-            GRAM: 0,
-            BTC: 0
-        };
+        let pePEBalance = 0;
         let history = [];
         let captchaAnswer = 0;
 
@@ -481,47 +390,28 @@
             document.getElementById('captchaAnswer').value = '';
         }
 
-        // ===== Select Coin =====
-        function selectCoin(coin) {
-            currentCoin = coin;
-            document.querySelectorAll('.coin-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector(`[data-coin="${coin}"]`).classList.add('active');
-            document.getElementById('selectedCoinLabel').textContent = coin;
-            document.getElementById('balanceDisplay').textContent = balances[coin].toFixed(8);
-            document.getElementById('wdCoin').value = coin;
+        // ===== Acak Reward PEPE =====
+        function getPepeAmount() {
+            const rnd = Math.random() * 100;
+            if (rnd < 60) return 15;   // 60% → 15 PEPE
+            if (rnd < 80) return 20;   // 20% → 20 PEPE
+            if (rnd < 90) return 30;   // 10% → 30 PEPE
+            if (rnd < 96) return 40;   // 6%  → 40 PEPE
+            if (rnd < 99) return 50;   // 3%  → 50 PEPE
+            return 60;                 // 1%  → 60 PEPE
         }
 
-        // ===== Claim Faucet (Demo) =====
+        // ===== Claim Faucet =====
         function claimFaucet() {
-            // Reward acak kecil (demo)
-function getPepeAmount() {
-    const rnd = Math.random() * 100;
-    if (rnd < 60) return 15;   // 60% → 15 PEPE
-    if (rnd < 80) return 20;   // 20% → 20 PEPE
-    if (rnd < 90) return 30;   // 10% → 30 PEPE
-    if (rnd < 96) return 40;   // 6%  → 40 PEPE
-    if (rnd < 99) return 50;   // 3%  → 50 PEPE
-    return 60;                    // 1%  → 60 PEPE
-}
+            const reward = getPepeAmount();
+            pePEBalance += reward;
 
-const rewards = {
-    PEPE: getPepeAmount().toFixed(2)
-};
-
-
-            const reward = parseFloat(rewards[currentCoin]);
-            balances[currentCoin] += reward;
-
-            document.getElementById('balanceDisplay').textContent = balances[currentCoin].toFixed(8);
-
-            showAlert(`Berhasil claim ${reward} ${currentCoin}!`, 'success');
+            document.getElementById('balanceDisplay').textContent = pePEBalance;
+            showAlert(`Berhasil claim ${reward} PEPE!`, 'success');
         }
 
         // ===== Withdraw =====
         function doWithdraw() {
-            const coin = document.getElementById('wdCoin').value;
             const address = document.getElementById('wdAddress').value.trim();
             const amount = parseFloat(document.getElementById('wdAmount').value);
             const userCaptcha = parseInt(document.getElementById('captchaAnswer').value);
@@ -540,26 +430,25 @@ const rewards = {
                 generateCaptcha();
                 return;
             }
-            if (amount > balances[coin]) {
-                showAlert(`Saldo ${coin} tidak cukup!`, 'error');
+            if (amount > pePEBalance) {
+                showAlert(`Saldo PEPE tidak cukup!`, 'error');
                 return;
             }
 
-            // Proses withdraw (demo - di dunia nyata kirim ke backend)
-            balances[coin] -= amount;
-            document.getElementById('balanceDisplay').textContent = balances[currentCoin].toFixed(8);
+            // Proses withdraw
+            pePEBalance -= amount;
+            document.getElementById('balanceDisplay').textContent = pePEBalance;
 
             // Simpan history
             const now = new Date().toLocaleString('id-ID');
             history.unshift({
-                coin,
                 amount,
-                address: address.substring(0, 12) + '...' + address.slice(-6),
+                address: address.length > 18 ? address.substring(0, 10) + '...' + address.slice(-6) : address,
                 time: now
             });
 
             renderHistory();
-            showAlert(`Berhasil withdraw ${amount} ${coin} ke ${address.substring(0, 10)}...`, 'success');
+            showAlert(`Berhasil withdraw ${amount} PEPE!`, 'success');
 
             // Reset form
             document.getElementById('wdAmount').value = '';
@@ -578,7 +467,7 @@ const rewards = {
             list.innerHTML = history.map(item => `
                 <div class="history-item">
                     <div>
-                        <strong class="status-success">${item.amount} ${item.coin}</strong><br>
+                        <strong class="status-success">${item.amount} PEPE</strong><br>
                         <small style="color:#888">${item.address}</small>
                     </div>
                     <div style="text-align:right;font-size:0.8rem;color:#666;">
