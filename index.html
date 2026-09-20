@@ -43,26 +43,6 @@
             font-size: 1.1rem;
         }
 
-        /* Ad Banner Style */
-        .ad-banner {
-            background: #1a1a2e;
-            border: 2px dashed #444;
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            margin: 20px 0;
-            min-height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
-            font-size: 0.95rem;
-        }
-
-        .ad-banner.sidebar {
-            min-height: 250px;
-        }
-
         .main-grid {
             display: grid;
             grid-template-columns: 1fr 300px;
@@ -141,94 +121,123 @@
             border-color: #00ff88;
         }
 
-        /* --- DESAIN CAPTCHA KEREN --- */
+        /* --- CAPTCHA AREA --- */
         .captcha-box-advanced {
             background: #1a1a2e;
             border: 1px solid rgba(0, 255, 136, 0.2);
             border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .captcha-title {
-            font-size: 1rem;
-            color: #00ff88;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .captcha-subtitle {
-            font-size: 0.8rem;
-            color: #aaa;
-            margin-bottom: 15px;
-            line-height: 1.3;
-        }
-
-        .thumb-btn {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 12px;
-            border-radius: 50%;
-            background: #24243e;
-            border: 4px solid #333;
+            padding: 25px 15px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 45px;
+            margin-bottom: 20px;
+            min-height: 180px;
+        }
+
+        /* TAHAP 1: HOLD */
+        .hold-wrapper {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
             user-select: none;
             -webkit-user-select: none;
-            transition: transform 0.1s, border-color 0.2s;
         }
 
-        .thumb-btn:active {
-            transform: scale(0.95);
+        .hold-wrapper svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
         }
 
-        .timer-display {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #00ccff;
-            font-family: monospace;
-            margin-bottom: 5px;
+        .progress-bg {
+            fill: none;
+            stroke: #333;
+            stroke-width: 8;
         }
 
-        .image-grid {
+        .progress-bar {
+            fill: none;
+            stroke: #00ccff;
+            stroke-width: 8;
+            stroke-dasharray: 339.292;
+            stroke-dashoffset: 339.292;
+            stroke-linecap: round;
+        }
+
+        .progress-bar.success {
+            stroke: #00ff88;
+        }
+
+        .thumb-icon {
+            font-size: 45px;
+            z-index: 2;
+            transition: transform 0.1s;
+        }
+
+        /* TAHAP 2: GRID EMOJI RAPIH */
+        .emoji-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 10px;
-            margin-top: 10px;
+            width: 100%;
+            max-width: 320px;
         }
 
-        .img-option {
-            background: #24243e;
-            border: 2px solid #444;
-            border-radius: 8px;
-            padding: 8px;
-            cursor: pointer;
-            font-size: 28px;
-            transition: all 0.2s;
+        .emoji-item {
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 60px;
+            border-radius: 12px;
+            background: #24243e;
+            aspect-ratio: 1 / 1; /* Membuat tombol selalu berbentuk kotak presisi */
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        .img-option:hover {
-            border-color: #00ff88;
-            background: #2a2a4a;
+        .emoji-item.large {
+            font-size: 32px;
+            cursor: not-allowed;
+            border: 2px solid transparent;
+            opacity: 0.8;
         }
 
-        .upside-down {
-            transform: rotate(180deg);
+        .emoji-item.small {
+            font-size: 20px;
+            cursor: pointer;
+            border: 2px solid #444;
+            transition: all 0.2s;
         }
 
-        .captcha-status {
-            font-size: 0.85rem;
-            min-height: 20px;
-            margin-top: 8px;
+        .emoji-item.small:active {
+            transform: scale(0.92);
+        }
+
+        .emoji-item.small:hover {
+            border-color: #00ccff;
+        }
+
+        .sequence-badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: #00ff88;
+            color: #000;
+            font-size: 11px;
             font-weight: bold;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .btn {
@@ -275,7 +284,7 @@
         }
 
         .history-item {
-            background: rgba(255,255,255,0.03);
+            background: rgba(255, 255, 255, 0.03);
             padding: 12px 15px;
             border-radius: 8px;
             margin-bottom: 8px;
@@ -323,12 +332,15 @@
             <p>Dapatkan PEPE Gratis Tanpa Batas</p>
         </header>
 
-        <!-- BEGIN AADS AD UNIT 2455836 -->
-        <div id="frame" style="width: 100%; margin: 0 auto 20px auto; position: relative; z-index: 99998;">
-            <iframe data-aa='2455836' src='//acceptable.a-ads.com/2455836/?size=Adaptive'
-                    style='border:0; padding:0; width:70%; height:auto; overflow:hidden; display: block; margin: auto;'></iframe>
+<!-- BEGIN AADS AD UNIT 2455850 -->
+
+<div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
+          <iframe data-aa='2455850' src='//acceptable.a-ads.com/2455850/?size=Adaptive'
+                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
         </div>
-        <!-- END AADS AD UNIT 2455836 -->
+
+<!-- END AADS AD UNIT 2455850 -->
+        </div>
 
         <div class="main-grid">
             <!-- Left Column -->
@@ -346,7 +358,7 @@
                         🎁 Claim PEPE Faucet
                     </button>
                     <p class="info-text">
-                        * Tidak ada batas claim. Setiap claim bisa mendapat reward PEPE acak.
+                        * Tidak ada batas claim Setiap claim bisa mendapat reward PEPE acak
                     </p>
                 </div>
 
@@ -366,40 +378,26 @@
                         <input type="number" id="wdAmount" placeholder="0" step="any" min="0">
                     </div>
 
-                    <!-- CAPTCHA INTERAKTIF DUA TAHAP -->
+                    <!-- CAPTCHA INTERAKTIF -->
                     <div class="captcha-box-advanced">
-                        <!-- TAHAP 1: HOLD JEMPOL -->
-                        <div id="captchaStepHold">
-                            <div class="captcha-title">🛡️ Captcha Tahap 1: Tahanan Waktu</div>
-                            <div class="captcha-subtitle">Tahan tombol jempol minimal <b>5.3179 detik</b> dan maksimal <b>10 detik</b>.</div>
-                            <div class="thumb-btn" id="thumbBtn">👍</div>
-                            <div class="timer-display" id="timerDisplay">0.0000s</div>
+                        <!-- TAHAP 1 -->
+                        <div id="captchaStepHold" class="hold-wrapper">
+                            <svg viewBox="0 0 120 120">
+                                <circle class="progress-bg" cx="60" cy="60" r="54"></circle>
+                                <circle class="progress-bar" id="progressBar" cx="60" cy="60" r="54"></circle>
+                            </svg>
+                            <div class="thumb-icon">👍</div>
                         </div>
 
-                        <!-- TAHAP 2: GAMBAR TERBALIK -->
-                        <div id="captchaStepImage" style="display: none;">
-                            <div class="captcha-title">🛡️ Captcha Tahap 2: Verifikasi Visual</div>
-                            <div class="captcha-subtitle">Pilih gambar yang posisinya <b>TERBALIK</b>:</div>
-                            <div class="image-grid">
-                                <div class="img-option" onclick="verifyImageChoice(false)">🦩</div>
-                                <div class="img-option upside-down" onclick="verifyImageChoice(true)">🐒</div>
-                                <div class="img-option" onclick="verifyImageChoice(false)">🦁</div>
-                            </div>
+                        <!-- TAHAP 2 -->
+                        <div id="captchaStepSequence" style="display: none;">
+                            <div class="emoji-grid" id="emojiGrid"></div>
                         </div>
-
-                        <div class="captcha-status" id="captchaStatusMsg"></div>
                     </div>
 
                     <button class="btn btn-primary" onclick="doWithdraw()">
                         💸 Tarik Sekarang
                     </button>
-
-                    <p class="info-text">
-                        ✅ Tidak ada batas minimum / maksimum<br>
-                        ✅ Tidak ada waktu tunggu<br>
-                        ✅ Bisa tarik ke alamat wallet PEPE mana saja<br>
-                        ⚠️ Pastikan alamat sudah benar sebelum withdraw
-                    </p>
                 </div>
 
                 <!-- History -->
@@ -415,72 +413,65 @@
 
             <!-- Right Column -->
             <div class="right">
-                <!-- BEGIN AADS AD UNIT 2455836 -->
-                <div id="frame-right" style="width: 100%; margin: auto; position: relative; z-index: 99998;">
-                    <iframe data-aa='2455836' src='//acceptable.a-ads.com/2455836/?size=Adaptive'
-                            style='border:0; padding:0; width:100%; height:auto; overflow:hidden; display: block; margin: auto;'></iframe>
-                </div>
-                <!-- END AADS AD UNIT 2455836 -->
+<!-- BEGIN AADS AD UNIT 2455850 -->
 
-                <div class="ad-banner sidebar" style="margin-top:20px;">
-                    [TEMPAT IKLAN SIDEBAR 2]
-                </div>
+<div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
+          <iframe data-aa='2455850' src='//acceptable.a-ads.com/2455850/?size=Adaptive'
+                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
+        </div>
+
+<!-- END AADS AD UNIT 2455850 -->
 
                 <div class="card" style="margin-top:20px;">
                     <h2 style="font-size:1.1rem;">ℹ️ Info Faucet</h2>
                     <p class="info-text" style="margin-top:0;">
-                        Faucet ini khusus untuk klaim <b>PEPE Token</b>.<br><br>
-                        Semua transaksi penarikan wajib menyelesaikan captcha tahan jempol dan verifikasi gambar terbalik.
+                        Faucet ini khusus untuk klaim <b>PEPE Token</b><br><br>
+                        Semua transaksi penarikan wajib menyelesaikan captcha tahan dan verifikasi emoji.
                     </p>
                 </div>
             </div>
         </div>
 
-        <!-- Bottom Ad -->
-        <div class="ad-banner">
-            [TEMPAT IKLAN BAWAH - Ganti dengan kode iklan kamu]
-        </div>
-
         <footer>
-            PEPE Faucet &copy; 2026 — Hanya frontend demo. Backend perlu dihubungkan sendiri.
+            PEPE Faucet &copy; 2026
         </footer>
     </div>
 
     <script>
-        // ===== STATE FAUCET =====
         let pePEBalance = 0;
         let history = [];
 
-        // ===== STATE CAPTCHA =====
-        const MIN_HOLD_TIME = 5.3179;  // Minimal 5.3179 detik
-        const MAX_HOLD_TIME = 10.0000; // Maksimal 10 detik
-
-        const thumbBtn = document.getElementById('thumbBtn');
-        const timerDisplay = document.getElementById('timerDisplay');
-        const captchaStatusMsg = document.getElementById('captchaStatusMsg');
+        // CAPTCHA CONFIG
+        const TARGET_TIME = 5.3179; 
+        const CIRCUMFERENCE = 339.292;
+        
         const captchaStepHold = document.getElementById('captchaStepHold');
-        const captchaStepImage = document.getElementById('captchaStepImage');
-
+        const progressBar = document.getElementById('progressBar');
+        const captchaStepSequence = document.getElementById('captchaStepSequence');
+        const emojiGrid = document.getElementById('emojiGrid');
+        
         let holdStartTime = null;
         let holdAnimFrame = null;
         let isHolding = false;
         let isCaptchaPassed = false;
+        let currentSequenceIndex = 0;
 
-        // ===== LOGIKA HOLD CAPTCHA TAHAP 1 =====
+        const expectedSequence = ['j', '👊🏻', '👍🏻'];
+        const distractions = ['🚀', '🌟', '🍕', 'A', '😎'];
+
+        // --- TAHAP 1 LOGIC ---
         function updateHoldTimer() {
             if (!isHolding) return;
 
-            const now = performance.now();
-            const elapsed = (now - holdStartTime) / 1000;
+            const elapsed = (performance.now() - holdStartTime) / 1000;
+            let progress = Math.min(elapsed / TARGET_TIME, 1);
+            
+            progressBar.style.strokeDashoffset = CIRCUMFERENCE - (progress * CIRCUMFERENCE);
 
-            timerDisplay.textContent = elapsed.toFixed(4) + 's';
-
-            if (elapsed > MAX_HOLD_TIME) {
-                thumbBtn.style.borderColor = "#ff5050";
-            } else if (elapsed >= MIN_HOLD_TIME) {
-                thumbBtn.style.borderColor = "#00ff88";
+            if (elapsed >= TARGET_TIME) {
+                progressBar.classList.add('success');
             } else {
-                thumbBtn.style.borderColor = "#333";
+                progressBar.classList.remove('success');
             }
 
             holdAnimFrame = requestAnimationFrame(updateHoldTimer);
@@ -492,9 +483,8 @@
 
             isHolding = true;
             holdStartTime = performance.now();
-            captchaStatusMsg.textContent = "";
-            captchaStatusMsg.className = "captcha-status";
-            thumbBtn.style.borderColor = "#333";
+            progressBar.classList.remove('success');
+            progressBar.style.strokeDashoffset = CIRCUMFERENCE;
 
             holdAnimFrame = requestAnimationFrame(updateHoldTimer);
         }
@@ -506,136 +496,151 @@
             isHolding = false;
             cancelAnimationFrame(holdAnimFrame);
 
-            const holdEndTime = performance.now();
-            const holdDuration = (holdEndTime - holdStartTime) / 1000;
+            const elapsed = (performance.now() - holdStartTime) / 1000;
 
-            if (holdDuration >= MIN_HOLD_TIME && holdDuration <= MAX_HOLD_TIME) {
-                // Berhasil Tahap 1 -> Pindah ke Tahap 2
-                captchaStatusMsg.textContent = "✅ Tahap 1 Pas! Pilih gambar terbalik.";
-                captchaStatusMsg.className = "captcha-status status-success";
-
+            if (elapsed >= TARGET_TIME) {
+                progressBar.classList.add('success');
+                progressBar.style.strokeDashoffset = 0;
+                
                 setTimeout(() => {
                     captchaStepHold.style.display = "none";
-                    captchaStepImage.style.display = "block";
-                    captchaStatusMsg.textContent = "";
-                }, 800);
+                    captchaStepSequence.style.display = "block";
+                    initStage2();
+                }, 400);
             } else {
-                // Gagal Tahap 1
-                timerDisplay.textContent = holdDuration.toFixed(4) + 's';
-
-                if (holdDuration < MIN_HOLD_TIME) {
-                    captchaStatusMsg.textContent = "❌ Terlalu cepat! Minimal tahan 5.3179 detik.";
-                } else {
-                    captchaStatusMsg.textContent = "❌ Terlalu lama! Lebih dari 10 detik tidak bisa.";
-                }
-
-                captchaStatusMsg.className = "captcha-status status-error";
-                thumbBtn.style.borderColor = "#ff5050";
-
-                setTimeout(() => {
-                    timerDisplay.textContent = "0.0000s";
-                    thumbBtn.style.borderColor = "#333";
-                }, 1500);
+                progressBar.style.strokeDashoffset = CIRCUMFERENCE;
             }
         }
 
-        // ===== LOGIKA CAPTCHA TAHAP 2 (GAMBAR TERBALIK) =====
-        function verifyImageChoice(isCorrect) {
-            if (isCorrect) {
-                isCaptchaPassed = true;
-                captchaStatusMsg.textContent = "🎉 Captcha Berhasil Diisi!";
-                captchaStatusMsg.className = "captcha-status status-success";
-                captchaStepImage.style.pointerEvents = "none";
-            } else {
-                captchaStatusMsg.textContent = "❌ Pilihan salah! Mengulang dari awal...";
-                captchaStatusMsg.className = "captcha-status status-error";
+        captchaStepHold.addEventListener('mousedown', startHold);
+        window.addEventListener('mouseup', endHold);
+        captchaStepHold.addEventListener('touchstart', startHold);
+        window.addEventListener('touchend', endHold);
 
-                setTimeout(() => {
-                    resetCaptcha();
-                }, 1500);
+        // --- TAHAP 2 LOGIC ---
+        function initStage2() {
+            currentSequenceIndex = 0;
+            emojiGrid.innerHTML = '';
+            
+            let items = [
+                { type: 'small', val: 'j' },
+                { type: 'small', val: '👊🏻' },
+                { type: 'small', val: '👍🏻' },
+                { type: 'large', val: distractions[0] },
+                { type: 'large', val: distractions[1] },
+                { type: 'large', val: distractions[2] },
+                { type: 'large', val: distractions[3] },
+                { type: 'large', val: distractions[4] }
+            ];
+
+            items.sort(() => Math.random() - 0.5);
+
+            items.forEach(item => {
+                let div = document.createElement('div');
+                div.className = `emoji-item ${item.type}`;
+                div.innerText = item.val;
+                
+                if (item.type === 'small') {
+                    div.onclick = () => handleSequenceClick(div, item.val);
+                }
+                
+                emojiGrid.appendChild(div);
+            });
+        }
+
+        function handleSequenceClick(element, val) {
+            if (val === expectedSequence[currentSequenceIndex]) {
+                currentSequenceIndex++;
+                
+                let badge = document.createElement('div');
+                badge.className = 'sequence-badge';
+                badge.innerText = currentSequenceIndex;
+                element.appendChild(badge);
+                
+                element.style.pointerEvents = 'none';
+                element.style.borderColor = '#00ff88';
+
+                if (currentSequenceIndex === 3) {
+                    isCaptchaPassed = true;
+                    setTimeout(() => {
+                        captchaStepSequence.style.display = "none";
+                        captchaStepHold.style.display = "flex";
+                        progressBar.classList.add('success');
+                        progressBar.style.strokeDashoffset = 0;
+                        document.querySelector('.thumb-icon').innerText = '✅';
+                    }, 500);
+                }
+            } else {
+                initStage2();
             }
         }
 
         function resetCaptcha() {
             isCaptchaPassed = false;
-            captchaStepImage.style.pointerEvents = "auto";
-            captchaStepImage.style.display = "none";
-            captchaStepHold.style.display = "block";
-            timerDisplay.textContent = "0.0000s";
-            captchaStatusMsg.textContent = "";
-            thumbBtn.style.borderColor = "#333";
+            captchaStepSequence.style.display = "none";
+            captchaStepHold.style.display = "flex";
+            progressBar.classList.remove('success');
+            progressBar.style.strokeDashoffset = CIRCUMFERENCE;
+            document.querySelector('.thumb-icon').innerText = '👍';
         }
 
-        // ===== EVENT LISTENERS CAPTCHA =====
-        thumbBtn.addEventListener('mousedown', startHold);
-        window.addEventListener('mouseup', endHold);
-        thumbBtn.addEventListener('touchstart', startHold);
-        window.addEventListener('touchend', endHold);
-
-        // ===== LOGIKA CLAIM FAUCET =====
+        // --- FAUCET & WITHDRAW LOGIC ---
         function getPepeAmount() {
             const rnd = Math.random() * 100;
-            if (rnd < 60) return 15;   // 60% → 15 PEPE
-            if (rnd < 80) return 20;   // 20% → 20 PEPE
-            if (rnd < 90) return 30;   // 10% → 30 PEPE
-            if (rnd < 96) return 40;   // 6%  → 40 PEPE
-            if (rnd < 99) return 50;   // 3%  → 50 PEPE
-            return 60;                 // 1%  → 60 PEPE
+            if (rnd < 60) return 15;
+            if (rnd < 80) return 20;
+            if (rnd < 90) return 30;
+            if (rnd < 96) return 40;
+            if (rnd < 99) return 50;
+            return 60;
         }
 
         function claimFaucet() {
             const reward = getPepeAmount();
             pePEBalance += reward;
-
             document.getElementById('balanceDisplay').textContent = pePEBalance;
-            showAlert(`Berhasil claim ${reward} PEPE!`, 'success');
+            showAlert(`Berhasil claim ${reward} PEPE`, 'success');
         }
 
-        // ===== LOGIKA WITHDRAW =====
         function doWithdraw() {
             const address = document.getElementById('wdAddress').value.trim();
             const amount = parseFloat(document.getElementById('wdAmount').value);
 
-            // Validasi Data Form
             if (!address) {
-                showAlert('Alamat wallet wajib diisi!', 'error');
+                showAlert('Alamat wallet wajib diisi', 'error');
                 return;
             }
             if (isNaN(amount) || amount <= 0) {
-                showAlert('Jumlah withdraw tidak valid!', 'error');
+                showAlert('Jumlah withdraw tidak valid', 'error');
                 return;
             }
             if (!isCaptchaPassed) {
-                showAlert('Selesaikan Captcha verifikasi terlebih dahulu!', 'error');
+                showAlert('Selesaikan verifikasi captcha dahulu', 'error');
                 return;
             }
             if (amount > pePEBalance) {
-                showAlert(`Saldo PEPE tidak cukup!`, 'error');
+                showAlert('Saldo PEPE tidak cukup', 'error');
                 return;
             }
 
-            // Eksekusi Withdraw
             pePEBalance -= amount;
             document.getElementById('balanceDisplay').textContent = pePEBalance;
 
-            // Tambah ke Riwayat
             const now = new Date().toLocaleString('id-ID');
             history.unshift({
-                amount,
+                amount: amount,
                 address: address.length > 18 ? address.substring(0, 10) + '...' + address.slice(-6) : address,
                 time: now
             });
 
             renderHistory();
-            showAlert(`Berhasil withdraw ${amount} PEPE!`, 'success');
+            showAlert(`Berhasil withdraw ${amount} PEPE`, 'success');
 
-            // Reset Form & Reset Captcha Ulang
             document.getElementById('wdAmount').value = '';
             document.getElementById('wdAddress').value = '';
             resetCaptcha();
         }
 
-        // ===== RIWAYAT & ALERT =====
         function renderHistory() {
             const list = document.getElementById('historyList');
             if (history.length === 0) {
@@ -643,26 +648,29 @@
                 return;
             }
 
-            list.innerHTML = history.map(item => `
-                <div class="history-item">
-                    <div>
-                        <strong class="status-success">${item.amount} PEPE</strong><br>
-                        <small style="color:#888">${item.address}</small>
-                    </div>
-                    <div style="text-align:right;font-size:0.8rem;color:#666;">
-                        ${item.time}
-                    </div>
-                </div>
-            `).join('');
+            let htmlContent = '';
+            for (let i = 0; i < history.length; i++) {
+                let item = history[i];
+                htmlContent += '<div class="history-item">' +
+                    '<div>' +
+                        '<strong class="status-success">' + item.amount + ' PEPE</strong><br>' +
+                        '<small style="color:#888">' + item.address + '</small>' +
+                    '</div>' +
+                    '<div style="text-align:right;font-size:0.8rem;color:#666;">' +
+                        item.time +
+                    '</div>' +
+                '</div>';
+            }
+            list.innerHTML = htmlContent;
         }
 
         function showAlert(msg, type) {
             const box = document.getElementById('alertBox');
-            box.className = `alert alert-${type}`;
+            box.className = 'alert alert-' + type;
             box.textContent = msg;
             box.style.display = 'block';
 
-            setTimeout(() => {
+            setTimeout(function() {
                 box.style.display = 'none';
             }, 4000);
         }
