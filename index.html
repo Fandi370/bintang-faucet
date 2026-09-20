@@ -496,12 +496,20 @@
         // ===== Claim Faucet (Demo) =====
         function claimFaucet() {
             // Reward acak kecil (demo)
-            const rewards = {
-                PEPE: (Math.random() * 50 + 10).toFixed(2),
-                FEYORRA: (Math.random() * 0.5 + 0.1).toFixed(4),
-                GRAM: (Math.random() * 0.3 + 0.05).toFixed(4),
-                BTC: (Math.random() * 0.00005 + 0.00001).toFixed(8)
-            };
+function getPepeAmount() {
+    const rnd = Math.random() * 100;
+    if (rnd < 60) return 15;   // 60% → 15 PEPE
+    if (rnd < 80) return 20;   // 20% → 20 PEPE
+    if (rnd < 90) return 30;   // 10% → 30 PEPE
+    if (rnd < 96) return 40;   // 6%  → 40 PEPE
+    if (rnd < 99) return 50;   // 3%  → 50 PEPE
+    return 60;                    // 1%  → 60 PEPE
+}
+
+const rewards = {
+    PEPE: getPepeAmount().toFixed(2)
+};
+
 
             const reward = parseFloat(rewards[currentCoin]);
             balances[currentCoin] += reward;
