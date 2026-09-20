@@ -26,8 +26,7 @@
 
         header {
             text-align: center;
-            padding: 25px 0;
-            margin-bottom: 30px;
+            padding: 25px 0 15px 0;
         }
 
         header h1 {
@@ -43,28 +42,10 @@
             font-size: 1.1rem;
         }
 
-        /* Ad Banner Style */
-        .ad-banner {
-            background: #1a1a2e;
-            border: 2px dashed #444;
-            border-radius: 12px;
-            padding: 15px;
+        /* Container khusus iklan atas */
+        .ad-container-top {
+            margin: 20px 0 30px 0;
             text-align: center;
-            margin: 20px 0;
-            min-height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
-            font-size: 0.95rem;
-        }
-
-        .ad-banner.top {
-            min-height: 100px;
-        }
-
-        .ad-banner.sidebar {
-            min-height: 250px;
         }
 
         .main-grid {
@@ -150,12 +131,6 @@
             border-color: #00ff88;
             background: rgba(0, 255, 136, 0.15);
             box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
-        }
-
-        .coin-btn img {
-            width: 36px;
-            height: 36px;
-            margin-bottom: 8px;
         }
 
         .coin-btn span {
@@ -315,10 +290,14 @@
             <p>PEPE • Feyorra • Gram • Bitcoin</p>
         </header>
 
-        <!-- Top Ad Banner -->
-        <div class="ad-banner top">
-            <!-- GANTI DENGAN KODE IKLAN DARI PROVIDER (Adsense / Propeller / dll) -->
-            [TEMPAT IKLAN ATAS - Ganti dengan kode iklan kamu]
+        <!-- Top Ad Banner (AADS) -->
+        <div class="ad-container-top">
+            <!-- BEGIN AADS AD UNIT 2455834 -->
+            <div id="frame" style="width: 100%;margin: auto;position: relative; z-index: 99998;">
+                <iframe data-aa='2455834' src='//acceptable.a-ads.com/2455834/?size=Adaptive'
+                    style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>
+            </div>
+            <!-- END AADS AD UNIT 2455834 -->
         </div>
 
         <div class="main-grid">
@@ -363,7 +342,7 @@
                 <!-- Withdraw Card -->
                 <div class="card">
                     <h2>📤 Withdraw</h2>
-                    
+
                     <div id="alertBox" class="alert"></div>
 
                     <div class="form-group">
@@ -418,19 +397,9 @@
                 </div>
             </div>
 
-            <!-- Right Column (Sidebar Ads) -->
+            <!-- Right Column -->
             <div class="right">
-                <div class="ad-banner sidebar">
-                    <!-- GANTI DENGAN KODE IKLAN SIDEBAR -->
-                    [TEMPAT IKLAN SIDEBAR 1]
-                </div>
-
-                <div class="ad-banner sidebar" style="margin-top:20px;">
-                    <!-- GANTI DENGAN KODE IKLAN SIDEBAR -->
-                    [TEMPAT IKLAN SIDEBAR 2]
-                </div>
-
-                <div class="card" style="margin-top:20px;">
+                <div class="card">
                     <h2 style="font-size:1.1rem;">ℹ️ Info</h2>
                     <p class="info-text" style="margin-top:0;">
                         Faucet ini mendukung 4 coin:<br><br>
@@ -442,12 +411,6 @@
                     </p>
                 </div>
             </div>
-        </div>
-
-        <!-- Bottom Ad -->
-        <div class="ad-banner">
-            <!-- GANTI DENGAN KODE IKLAN BAWAH -->
-            [TEMPAT IKLAN BAWAH - Ganti dengan kode iklan kamu]
         </div>
 
         <footer>
@@ -490,7 +453,6 @@
 
         // ===== Claim Faucet (Demo) =====
         function claimFaucet() {
-            // Reward acak kecil (demo)
             const rewards = {
                 PEPE: (Math.random() * 50 + 10).toFixed(2),
                 FEYORRA: (Math.random() * 0.5 + 0.1).toFixed(4),
@@ -513,7 +475,6 @@
             const amount = parseFloat(document.getElementById('wdAmount').value);
             const userCaptcha = parseInt(document.getElementById('captchaAnswer').value);
 
-            // Validasi
             if (!address) {
                 showAlert('Alamat wallet wajib diisi!', 'error');
                 return;
@@ -532,11 +493,9 @@
                 return;
             }
 
-            // Proses withdraw (demo - di dunia nyata kirim ke backend)
             balances[coin] -= amount;
             document.getElementById('balanceDisplay').textContent = balances[currentCoin].toFixed(8);
 
-            // Simpan history
             const now = new Date().toLocaleString('id-ID');
             history.unshift({
                 coin,
@@ -548,7 +507,6 @@
             renderHistory();
             showAlert(`Berhasil withdraw ${amount} ${coin} ke ${address.substring(0, 10)}...`, 'success');
 
-            // Reset form
             document.getElementById('wdAmount').value = '';
             document.getElementById('wdAddress').value = '';
             generateCaptcha();
